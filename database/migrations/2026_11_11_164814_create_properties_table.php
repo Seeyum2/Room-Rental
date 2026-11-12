@@ -27,7 +27,7 @@ return new class extends Migration
                 'villa',
                 'commercial',
                 'seat',
-                'room',
+                'room'
             ])->default('room');
 
             // Rental details
@@ -35,6 +35,8 @@ return new class extends Migration
             $table->unsignedInteger('bedrooms')->default(0);
             $table->unsignedInteger('bathrooms')->default(0);
             $table->decimal('sqft', 10, 2)->nullable();
+
+            
 
             // Location
             $table->string('address');

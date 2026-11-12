@@ -1,0 +1,81 @@
+property insert test value 1
+
+{
+    "title": "Modern 2 Bedroom Apartment for Rent",
+    "description": "A spacious and well-maintained apartment with modern facilities.",
+    "property_type": "apartment",
+    "rent_amount": 18000,
+    "tenant_gender": "male",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "sqft": 1200,
+    "tenant_type": "job_holder",
+    "address": "House 25, Road 10, Dhanmondi",
+    "city": "Dhaka",
+    "area": "Dhanmondi",
+    "postal_code": "1209",
+    "available_from": "2026-12-01",
+    "status": "pending"
+}
+
+landlord login test value 
+
+{
+    "email":    "rhyme@example.com",
+    "password": "12345123"
+}
+
+property insert test value 2
+
+{
+    "title": "Spacious 3 Bedroom Family House",
+    "description": "Beautiful family house with a balcony, parking space and nearby schools.",
+    "property_type": "house",
+    "rent_amount": 28000,
+    "tenant_gender": "other",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "sqft": 1600,
+    "tenant_type": "job_holder",
+    "address": "House 18, Road 5, Uttara",
+    "city": "Dhaka",
+    "area": "Uttara",
+    "postal_code": "1230",
+    "available_from": "2026-12-15"
+}
+
+property insert test value 3 
+
+{
+    "title": "Affordable Single Room for Students",
+    "description": "Furnished single room with Wi-Fi, shared kitchen and attached bathroom.",
+    "property_type": "room",
+    "rent_amount": 7500,
+    "tenant_gender": "male",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "sqft": 250,
+    "tenant_type": "student",
+    "address": "House 12, Road 3, Mirpur",
+    "city": "Dhaka",
+    "area": "Mirpur",
+    "postal_code": "1216",
+    "available_from": "2026-12-01"
+}
+
+register test value
+
+{
+    "name": "Rahim Ahmed",
+    "email": "rahim@gmail.com",
+    "password": "Rahim@123",
+    "password_confirmation": "Rahim@123",
+    "role": "landlord"
+}
+
+landlord login
+
+{
+    "email": "seeyum@gmail.com",
+    "password": "12345123"
+}

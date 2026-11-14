@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PropertiesModel extends Model
 {
@@ -24,7 +25,7 @@ class PropertiesModel extends Model
         'area',
         'postal_code',
         'available_from',
-        'status'
+        'status',
     ];
 
     protected $casts = [
@@ -33,9 +34,15 @@ class PropertiesModel extends Model
         'available_from' => 'date',
     ];
 
-    // Relationship with User model
+    // Relationship with Landlord
     public function landlord(): BelongsTo
     {
         return $this->belongsTo(User::class, 'landlord_id');
+    }
+
+    // Relationship with Property Images
+    public function images(): HasMany
+    {
+        return $this->hasMany(PropertyImage::class, 'property_id');
     }
 }

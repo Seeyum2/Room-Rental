@@ -3,7 +3,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\PropertiesModel;
+use App\Models\PropertyImage;
 
 class PropertiesController extends Controller
 {
@@ -11,7 +13,7 @@ class PropertiesController extends Controller
     public function index()
     {
         $properties = PropertiesModel::where('landlord_id', auth()->id())
-            ->with('landlord:id,name,email')
+            ->with(['landlord:id,name,email', 'images'])
             ->latest()
             ->get();
 
@@ -54,7 +56,42 @@ class PropertiesController extends Controller
         ], 201);
     }
 
-    // GET: Fetch single property
+    // POST: Upload multiple images for a property
+    public function uploadImages(Request $request, $id)
+    {
+        $property = PropertiesModel::findOrFail($id);
+
+        // Check property ownership
+        abort_if(
+            $property->landlord_id != auth()->id(),
+            403,
+            'Unauthorized. You cannot upload images for another landlord\'s property.'
+        );
+
+        $request->validate([
+            'images' => 'required|array|min:1|max:10',
+            'images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
+
+        $uploadedImages = [];
+
+        foreach ($request->file('images') as $image) {
+            $path = $image->store('properties', 'public');
+
+            $uploadedImages[] = PropertyImage::create([
+                'property_id' => $property->id,
+                'image_path' => $path,
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Property images uploaded successfully',
+            'data' => $uploadedImages
+        ], 201);
+    }
+
+    // GET: Fetch single property with images
     public function show($id)
     {
         $property = PropertiesModel::findOrFail($id);
@@ -66,7 +103,10 @@ class PropertiesController extends Controller
             'Unauthorized. You cannot access another landlord\'s property.'
         );
 
-        $property->load('landlord:id,name,email');
+        $property->load([
+            'landlord:id,name,email',
+            'images'
+        ]);
 
         return response()->json([
             'status' => true,
